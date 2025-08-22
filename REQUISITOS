@@ -1,0 +1,22 @@
+Requisitos de Usuário
+- O usuário deseja organizar suas tarefas e metas de forma centralizada
+- O usuário deseja ser notificado sobre prazos próximos
+- O usuário quer criar suas próprias categorias (tags, status, prioridades)
+- O usuário deseja acessar e gerenciar listas personalizadas
+- O usuário espera uma interface simples, rápida e fácil de usar
+
+
+ Requisitos Funcionais
+        Cadastro e autenticação de usuários: incluir, editar, excluir, validar login
+Gerenciamento de tarefas: criar, visualizar, atualizar e remover tarefas com título, descrição, datas, prioridade, status e tags
+Filtro e busca de tarefas: por status, prioridade, tags e período
+Visualização em calendário: exibir tarefas distribuídas por data
+Notificações por e-mail: alertas sobre prazos próximos das tarefas
+Gerenciamento de listas personalizadas: criar, consultar, atualizar e remover listas com campos definidos pelo usuário
+	
+	Requisitos Não-Funcionais
+Usabilidade: interface intuitiva, responsiva para desktop, fácil de navegar
+Desempenho: resposta das ações em até 2 segundos
+Segurança: senhas criptografadas e logout automático após 15 minutos de inatividade
+Confiabilidade: integridade dos dados garantida no banco, com backup periódico
+
