@@ -10,6 +10,7 @@ module com.projetotematico1.notesflow {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.projetotematico1.notesflow to javafx.fxml;
     exports com.projetotematico1.notesflow;
