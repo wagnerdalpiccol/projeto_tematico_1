@@ -4,6 +4,7 @@ import com.projetotematico1.notesflow.model.Tarefa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TarefaDAO {
 
@@ -13,15 +14,15 @@ public class TarefaDAO {
         return tarefas;
     }
 
-    public void adicionar() {
+    public void adicionar(Tarefa tarefa) {
 
     }
 
-    public void atualizar() {
+    public void atualizar(Tarefa tarefa) {
 
     }
 
-    public void deletar() {
+    public void deletar(UUID id) {
 
     }
 }
