@@ -3,6 +3,7 @@ package com.projetotematico1.notesflow.service;
 import com.projetotematico1.notesflow.dao.TarefaDAO;
 import com.projetotematico1.notesflow.model.Tarefa;
 
+import java.util.List;
 import java.util.UUID;
 
 public class TarefaService {
@@ -24,5 +25,9 @@ public class TarefaService {
 
     public void deletar(UUID id) {
         tarefaDAO.deletar(id);
+    }
+
+    public List<Tarefa> getAll() {
+        return tarefaDAO.getAll();
     }
 }

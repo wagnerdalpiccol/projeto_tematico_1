@@ -11,6 +11,7 @@ module com.projetotematico1.notesflow {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires org.postgresql.jdbc;
 
     opens com.projetotematico1.notesflow to javafx.fxml;
     exports com.projetotematico1.notesflow;

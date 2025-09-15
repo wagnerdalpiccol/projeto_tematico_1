@@ -1,5 +1,6 @@
 package com.projetotematico1.notesflow.model;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -8,15 +9,14 @@ public class Tarefa {
     private UUID id;
     private String descricao;
     private Integer status;
-    private ZonedDateTime dataInicio;
-    private ZonedDateTime dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
     private Integer prioridade;
 
     public Tarefa() {
     }
 
-    public Tarefa(UUID id, String descricao, Integer status, ZonedDateTime dataInicio, ZonedDateTime dataFim, Integer prioridade) {
-        this.id = id;
+    public Tarefa(String descricao, Integer status, LocalDate dataInicio, LocalDate dataFim, Integer prioridade) {
         this.descricao = descricao;
         this.status = status;
         this.dataInicio = dataInicio;
@@ -48,19 +48,19 @@ public class Tarefa {
         this.status = status;
     }
 
-    public ZonedDateTime getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(ZonedDateTime dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public ZonedDateTime getDataFim() {
+    public LocalDate getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(ZonedDateTime dataFim) {
+    public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
 
