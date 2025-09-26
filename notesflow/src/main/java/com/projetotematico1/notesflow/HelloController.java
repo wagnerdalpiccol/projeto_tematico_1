@@ -1,14 +1,12 @@
 package com.projetotematico1.notesflow;
 
-import com.projetotematico1.notesflow.dao.TarefaDAO;
-import com.projetotematico1.notesflow.model.Tarefa;
+import com.projetotematico1.notesflow.repository.TarefaRepository;
+import com.projetotematico1.notesflow.entity.Tarefa;
 import com.projetotematico1.notesflow.service.TarefaService;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.UUID;
 
 public class HelloController {
 
@@ -27,19 +25,15 @@ public class HelloController {
     private Label statusLabel;
 
     // Declaração dos objetos Service e DAO
-    private TarefaDAO tarefaDAO;
+    private TarefaRepository tarefaRepository;
     private TarefaService tarefaService;
 
     // Método que é chamado automaticamente após o FXML ser carregado
     @FXML
     public void initialize() {
         // Inicializa os objetos Service e DAO
-        this.tarefaDAO = new TarefaDAO();
-        this.tarefaService = new TarefaService(tarefaDAO);
-
-        // Inicializa os itens dos ComboBoxes
-        statusComboBox.getItems().addAll("Pendente", "Em Andamento", "Concluído");
-        prioridadeComboBox.getItems().addAll("Alta", "Média", "Baixa");
+        this.tarefaRepository = new TarefaRepository();
+        this.tarefaService = new TarefaService(tarefaRepository);
     }
 
     // Método que será executado ao clicar no botão "Salvar"

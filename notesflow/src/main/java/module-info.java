@@ -13,6 +13,7 @@ module com.projetotematico1.notesflow {
     requires java.sql;
     requires org.postgresql.jdbc;
 
+    opens com.projetotematico1.notesflow.controller to javafx.fxml;
     opens com.projetotematico1.notesflow to javafx.fxml;
     exports com.projetotematico1.notesflow;
 }

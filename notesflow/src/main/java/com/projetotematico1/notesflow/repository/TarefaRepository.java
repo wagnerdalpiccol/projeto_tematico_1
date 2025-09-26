@@ -1,6 +1,6 @@
-package com.projetotematico1.notesflow.dao;
+package com.projetotematico1.notesflow.repository;
 
-import com.projetotematico1.notesflow.model.Tarefa;
+import com.projetotematico1.notesflow.entity.Tarefa;
 import com.projetotematico1.notesflow.db.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TarefaDAO {
+public class TarefaRepository {
 
     // A lista em memória não é mais necessária, pois o DAO se comunica com o banco de dados.
     // private final List<Tarefa> tarefas = new ArrayList<>();

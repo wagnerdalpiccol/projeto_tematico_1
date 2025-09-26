@@ -1,7 +1,6 @@
-package com.projetotematico1.notesflow.model;
+package com.projetotematico1.notesflow.entity;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
 

@@ -1,33 +1,33 @@
 package com.projetotematico1.notesflow.service;
 
-import com.projetotematico1.notesflow.dao.TarefaDAO;
-import com.projetotematico1.notesflow.model.Tarefa;
+import com.projetotematico1.notesflow.repository.TarefaRepository;
+import com.projetotematico1.notesflow.entity.Tarefa;
 
 import java.util.List;
 import java.util.UUID;
 
 public class TarefaService {
 
-    private final TarefaDAO tarefaDAO;
+    private final TarefaRepository tarefaRepository;
 
-    public TarefaService(TarefaDAO tarefaDAO) {
-        this.tarefaDAO = tarefaDAO;
+    public TarefaService(TarefaRepository tarefaRepository) {
+        this.tarefaRepository = tarefaRepository;
     }
 
     public void adicionar(Tarefa tarefa) {
         tarefa.setId(UUID.randomUUID());
-        tarefaDAO.adicionar(tarefa);
+        tarefaRepository.adicionar(tarefa);
     }
 
     public void atualizar(Tarefa tarefa) {
-        tarefaDAO.atualizar(tarefa);
+        tarefaRepository.atualizar(tarefa);
     }
 
     public void deletar(UUID id) {
-        tarefaDAO.deletar(id);
+        tarefaRepository.deletar(id);
     }
 
     public List<Tarefa> getAll() {
-        return tarefaDAO.getAll();
+        return tarefaRepository.getAll();
     }
 }
