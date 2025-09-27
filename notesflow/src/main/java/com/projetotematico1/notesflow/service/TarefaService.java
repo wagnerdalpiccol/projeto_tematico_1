@@ -1,7 +1,7 @@
 package com.projetotematico1.notesflow.service;
 
 import com.projetotematico1.notesflow.repository.TarefaRepository;
-import com.projetotematico1.notesflow.entity.Tarefa;
+import com.projetotematico1.notesflow.model.entities.Tarefa;
 
 import java.util.List;
 import java.util.UUID;

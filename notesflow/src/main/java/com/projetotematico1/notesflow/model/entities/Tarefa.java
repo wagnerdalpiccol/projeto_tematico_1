@@ -1,4 +1,4 @@
-package com.projetotematico1.notesflow.entity;
+package com.projetotematico1.notesflow.model.entities;
 
 import java.time.LocalDate;
 import java.util.Objects;

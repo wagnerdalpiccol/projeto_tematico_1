@@ -1,6 +1,6 @@
 package com.projetotematico1.notesflow.repository;
 
-import com.projetotematico1.notesflow.entity.Tarefa;
+import com.projetotematico1.notesflow.model.entities.Tarefa;
 import com.projetotematico1.notesflow.db.DatabaseConnection;
 
 import java.sql.Connection;
