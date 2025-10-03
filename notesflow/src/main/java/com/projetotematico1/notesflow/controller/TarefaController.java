@@ -3,10 +3,16 @@ package com.projetotematico1.notesflow.controller;
 import com.projetotematico1.notesflow.model.entities.Tarefa;
 import com.projetotematico1.notesflow.service.TarefaService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +22,6 @@ import java.util.UUID;
 
 public class TarefaController implements Initializable {
 
-    // --- Mapeamento dos elementos do FXML ---
     @FXML private TableView<Tarefa> tabelaTarefas;
     @FXML private TableColumn<Tarefa, String> colunaDescricao;
     @FXML private TableColumn<Tarefa, Integer> colunaStatus;
@@ -32,10 +37,9 @@ public class TarefaController implements Initializable {
 
     private TarefaService tarefaService;
 
-    // --- Métodos de ciclo de vida do controller ---
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tarefaService = new TarefaService(); // Instancie seu serviço aqui
+        tarefaService = new TarefaService();
         configurarTabela();
         carregarTarefas();
     }
@@ -49,15 +53,34 @@ public class TarefaController implements Initializable {
     }
 
     private void carregarTarefas() {
-        //List<Tarefa> tarefas = tarefaService.findAll();
-        //tabelaTarefas.getItems().setAll(tarefas);
+        List<Tarefa> tarefas = tarefaService.findAll();
+        tabelaTarefas.getItems().setAll(tarefas);
     }
 
-    // --- Métodos de CRUD (Chamados por eventos da UI) ---
+    @FXML
+    public void abrirNovaAbaAdicionarTarefa() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetotematico1/notesflow/view/tarefa-form-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Adicionar Nova Tarefa");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            // Recarrega a tabela após o fechamento da janela de adição, garantindo que
+            // a nova tarefa seja exibida.
+            carregarTarefas();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível carregar a tela de adição de tarefas.");
+        }
+    }
 
     @FXML
     public void criarTarefa() {
-        // Validação básica dos campos
         if (txtDescricao.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Erro", "A descrição não pode ser vazia.");
             return;
@@ -71,8 +94,8 @@ public class TarefaController implements Initializable {
                 comboPrioridade.getValue()
         );
 
-        //tarefaService.save(novaTarefa);
-        carregarTarefas(); // Atualiza a tabela
+        tarefaService.save(novaTarefa);
+        carregarTarefas();
         limparCampos();
         showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Tarefa criada com sucesso!");
     }
@@ -87,7 +110,7 @@ public class TarefaController implements Initializable {
             tarefaSelecionada.setDataFim(dpDataFim.getValue());
             tarefaSelecionada.setPrioridade(comboPrioridade.getValue());
 
-            //tarefaService.update(tarefaSelecionada.getId(), tarefaSelecionada);
+            tarefaService.update(tarefaSelecionada);
             carregarTarefas();
             limparCampos();
             showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Tarefa atualizada!");
@@ -100,15 +123,13 @@ public class TarefaController implements Initializable {
     public void deletarTarefa() {
         Tarefa tarefaSelecionada = tabelaTarefas.getSelectionModel().getSelectedItem();
         if (tarefaSelecionada != null) {
-            //tarefaService.delete(tarefaSelecionada.getId());
+            tarefaService.delete(tarefaSelecionada.getId());
             carregarTarefas();
             showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Tarefa excluída!");
         } else {
             showAlert(Alert.AlertType.WARNING, "Atenção", "Selecione uma tarefa para excluir.");
         }
     }
-
-    // --- Métodos de utilidade para a UI ---
 
     @FXML
     public void limparCampos() {

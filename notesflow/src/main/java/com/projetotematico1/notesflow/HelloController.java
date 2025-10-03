@@ -48,7 +48,7 @@ public class HelloController {
 
         Tarefa novaTarefa = new Tarefa(descricao, 1, dataIni, dataFim, 2);
 
-        tarefaService.adicionar(novaTarefa);
+        tarefaService.save(novaTarefa);
 
         // Limpando os campos após o salvamento
         descricaoTextField.clear();

@@ -17,8 +17,7 @@ public class TarefaRepository {
     // A lista em memória não é mais necessária, pois o DAO se comunica com o banco de dados.
     // private final List<Tarefa> tarefas = new ArrayList<>();
 
-    // Método para adicionar uma nova tarefa no banco de dados
-    public void adicionar(Tarefa tarefa) {
+    public void save(Tarefa tarefa) {
         String sql = "INSERT INTO tarefas (id, descricao, status, datainicio, datafim, prioridade) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -43,14 +42,13 @@ public class TarefaRepository {
         }
     }
 
-    // Método para buscar todas as tarefas do banco de dados
-    public List<Tarefa> getAll() {
+    public List<Tarefa> findAll() {
         List<Tarefa> tarefas = new ArrayList<>();
         String sql = "SELECT id, descricao, status, datainicio, datafim, prioridade FROM tarefas";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) { // Usamos executeQuery para comandos SELECT
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Tarefa tarefa = new Tarefa();
@@ -70,8 +68,7 @@ public class TarefaRepository {
         return tarefas;
     }
 
-    // Método para atualizar uma tarefa existente no banco de dados
-    public void atualizar(Tarefa tarefa) {
+    public void update(Tarefa tarefa) {
         String sql = "UPDATE tarefas SET descricao = ?, status = ?, datainicio = ?, datafim = ?, prioridade = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -96,9 +93,7 @@ public class TarefaRepository {
             e.printStackTrace();
         }
     }
-
-    // Método para deletar uma tarefa do banco de dados pelo ID
-    public void deletar(UUID id) {
+    public void delete(UUID id) {
         String sql = "DELETE FROM tarefas WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();

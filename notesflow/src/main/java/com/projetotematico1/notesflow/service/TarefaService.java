@@ -11,23 +11,23 @@ public class TarefaService {
     private TarefaRepository tarefaRepository;
 
     public TarefaService() {
-
+        this.tarefaRepository = new TarefaRepository();
     }
 
-    public void adicionar(Tarefa tarefa) {
+    public void save(Tarefa tarefa) {
         tarefa.setId(UUID.randomUUID());
-        tarefaRepository.adicionar(tarefa);
+        tarefaRepository.save(tarefa);
     }
 
-    public void atualizar(Tarefa tarefa) {
-        tarefaRepository.atualizar(tarefa);
+    public void update(Tarefa tarefa) {
+        tarefaRepository.update(tarefa);
     }
 
-    public void deletar(UUID id) {
-        tarefaRepository.deletar(id);
+    public void delete(UUID id) {
+        tarefaRepository.delete(id);
     }
 
-    public List<Tarefa> getAll() {
-        return tarefaRepository.getAll();
+    public List<Tarefa> findAll() {
+        return tarefaRepository.findAll();
     }
 }

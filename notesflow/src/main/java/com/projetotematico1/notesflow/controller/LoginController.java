@@ -23,7 +23,7 @@ public class LoginController {
 
         if (usuario.equals("admin") && senha.equals("123")) {
             System.out.println("Login bem-sucedido!");
-            NavigationManager.navigateTo(event, Screen.MANAGEMENT);
+            NavigationManager.navigateTo(event, Screen.TAREFA);
 
         } else {
             System.out.println("Usuário ou senha inválidos!");
