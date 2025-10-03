@@ -33,7 +33,7 @@ public class HelloController {
     public void initialize() {
         // Inicializa os objetos Service e DAO
         this.tarefaRepository = new TarefaRepository();
-        this.tarefaService = new TarefaService(tarefaRepository);
+        this.tarefaService = new TarefaService();
     }
 
     // Método que será executado ao clicar no botão "Salvar"

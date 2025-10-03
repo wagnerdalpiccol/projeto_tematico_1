@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public class TarefaService {
 
-    private final TarefaRepository tarefaRepository;
+    private TarefaRepository tarefaRepository;
 
-    public TarefaService(TarefaRepository tarefaRepository) {
-        this.tarefaRepository = tarefaRepository;
+    public TarefaService() {
+
     }
 
     public void adicionar(Tarefa tarefa) {
