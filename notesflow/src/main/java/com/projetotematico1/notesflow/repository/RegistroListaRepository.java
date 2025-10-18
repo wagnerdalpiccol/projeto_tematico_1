@@ -58,11 +58,13 @@ public class RegistroListaRepository {
     }
 
     // ----------------------------------------------------------------------
-    // INSERT (Corrigido: Adicionado ::jsonb)
+    // INSERT (Corrigido: Usando CAST(? AS JSONB))
     // ----------------------------------------------------------------------
     private RegistroLista insert(RegistroLista registro) {
-        // A CONVERSÃO EXPLÍCITA ::jsonb resolve o problema de tipo
-        String sql = "INSERT INTO registros_lista (id, listaId, dados) VALUES (?, ?, ?::jsonb)";
+
+        registro.setId(UUID.randomUUID());
+
+        String sql = "INSERT INTO registros_lista (id, listaId, dados) VALUES (?, ?, CAST(? AS JSONB))";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -73,7 +75,6 @@ public class RegistroListaRepository {
             pstmt.setObject(2, registro.getListaId());
 
             String jsonDados = objectMapper.writeValueAsString(registro.getDados());
-            // Voltamos a usar setString, o cast no SQL resolve a incompatibilidade
             pstmt.setString(3, jsonDados);
 
             pstmt.executeUpdate();
@@ -91,11 +92,11 @@ public class RegistroListaRepository {
     }
 
     // ----------------------------------------------------------------------
-    // UPDATE (Corrigido: Adicionado ::jsonb)
+    // UPDATE (Corrigido: Usando CAST(? AS JSONB))
     // ----------------------------------------------------------------------
     private RegistroLista update(RegistroLista registro) {
-        // A CONVERSÃO EXPLÍCITA ::jsonb resolve o problema de tipo
-        String sql = "UPDATE registros_lista SET dados = ?::jsonb WHERE id = ?";
+        // CORRIGIDO: Utiliza a função CAST para forçar a conversão de String para JSONB
+        String sql = "UPDATE registros_lista SET dados = CAST(? AS JSONB) WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -103,7 +104,6 @@ public class RegistroListaRepository {
             conn.setAutoCommit(true);
 
             String jsonDados = objectMapper.writeValueAsString(registro.getDados());
-            // Voltamos a usar setString, o cast no SQL resolve a incompatibilidade
             pstmt.setString(1, jsonDados);
             pstmt.setObject(2, registro.getId());
 

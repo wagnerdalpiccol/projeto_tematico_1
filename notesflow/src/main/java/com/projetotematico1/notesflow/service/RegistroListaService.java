@@ -20,9 +20,9 @@ public class RegistroListaService {
         }
 
         // Se for um novo registro, gera um novo UUID
-        if (registro.getId() == null) {
+        /*if (registro.getId() == null) {
             registro.setId(UUID.randomUUID());
-        }
+        }*/
 
         return repository.save(registro);
     }
