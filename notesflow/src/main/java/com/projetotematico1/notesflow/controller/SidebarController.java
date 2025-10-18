@@ -19,14 +19,6 @@ public class SidebarController {
 
     @FXML
     public void goToListas(ActionEvent event) {
-        // A tela LISTA será implementada posteriormente.
-        // Por enquanto, podemos navegar para uma tela placeholder ou a tela padrão.
-        // Assumindo que você criará Screen.LISTA:
-        // NavigationManager.navigateTo(event, Screen.LISTA);
-
-        // Usando a tela padrão por enquanto, ou você pode criar uma Screen.LISTA
-        // e mapeá-la para um fxml de placeholder.
-        System.out.println("Navegando para Listas (ainda não implementado: Screen.LISTA)");
-        NavigationManager.navigateTo(event, Screen.MANAGEMENT);
+        NavigationManager.navigateTo(event, Screen.LISTA);
     }
 }
