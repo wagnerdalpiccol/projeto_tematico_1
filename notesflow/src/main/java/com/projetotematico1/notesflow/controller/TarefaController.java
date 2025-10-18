@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class TarefaController implements Initializable {
 
@@ -29,6 +27,8 @@ public class TarefaController implements Initializable {
     @FXML private TableColumn<Tarefa, LocalDate> colunaDataFim;
     @FXML private TableColumn<Tarefa, Integer> colunaPrioridade;
 
+    // Campos FXML existentes (para a funcionalidade antiga de CRUD direta na tela principal,
+    // mas que não serão usados para o contexto de edição via modal)
     @FXML private TextField txtDescricao;
     @FXML private ComboBox<Integer> comboStatus;
     @FXML private DatePicker dpDataInicio;
@@ -57,27 +57,59 @@ public class TarefaController implements Initializable {
         tabelaTarefas.getItems().setAll(tarefas);
     }
 
+    // Método refatorado para usar o método auxiliar. Agora só chama a abertura com null (nova tarefa).
     @FXML
     public void abrirNovaAbaAdicionarTarefa() {
+        abrirFormularioTarefa(null);
+    }
+
+    // NOVO MÉTODO: Lida com a ação de editar vinda do ContextMenu (clique direito)
+    @FXML
+    public void handleEditarTarefaContext() {
+        Tarefa tarefaSelecionada = tabelaTarefas.getSelectionModel().getSelectedItem();
+
+        if (tarefaSelecionada != null) {
+            abrirFormularioTarefa(tarefaSelecionada); // Passa a tarefa para edição
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Atenção", "Selecione uma tarefa para editar.");
+        }
+    }
+
+    /**
+     * Método auxiliar privado para abrir o formulário de tarefa em uma nova janela modal.
+     * @param tarefa O objeto Tarefa a ser editado (ou null para uma nova tarefa).
+     */
+    private void abrirFormularioTarefa(Tarefa tarefa) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetotematico1/notesflow/view/tarefa-form-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetotematico1/notesflow/view/nova-tarefa-view.fxml"));
             Parent root = loader.load();
 
+            // 1. Obtém a instância do controller do formulário.
+            TarefaFormController formController = loader.getController();
+
+            // 2. Se a tarefa não for nula, passa os dados para o formulário.
+            if (tarefa != null) {
+                formController.setTarefaParaEdicao(tarefa);
+            }
+
             Stage stage = new Stage();
-            stage.setTitle("Adicionar Nova Tarefa");
+            // 3. Define o título com base na ação (Adicionar ou Editar).
+            stage.setTitle(tarefa == null ? "Adicionar Nova Tarefa" : "Editar Tarefa");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
-            // Recarrega a tabela após o fechamento da janela de adição, garantindo que
-            // a nova tarefa seja exibida.
+            // Recarrega a tabela principal após o formulário ser fechado.
             carregarTarefas();
 
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível carregar a tela de adição de tarefas.");
+            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível carregar a tela de formulário de tarefas.");
         }
     }
+
+    // Os métodos criarTarefa, atualizarTarefa, deletarTarefa e limparCampos originais foram mantidos.
+    // Eles se referem aos controles de campo na própria tela de Tarefas, se for um formulário embutido.
 
     @FXML
     public void criarTarefa() {
